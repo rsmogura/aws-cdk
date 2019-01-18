@@ -44,6 +44,15 @@ export interface PipelineCloudFormationActionProps extends codepipeline.CommonAc
    * @default the Action resides in the same region as the Pipeline
    */
   region?: string;
+
+  /**
+   * The service role that is assumed during execution of action.
+   * This role is not mandatory, however more advanced configuration
+   * may require specifying it.
+   *
+   * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html
+   */
+  role?: iam.IRole;
 }
 
 /**
@@ -56,6 +65,15 @@ export abstract class PipelineCloudFormationAction extends codepipeline.Action {
    * Only present if configured by passing `outputFileName`.
    */
   public outputArtifact?: codepipeline.Artifact;
+
+  /**
+   * The service role that is assumed during execution of action.
+   * This role is not mandatory, however more advanced configuration
+   * may require specifying it.
+   *
+   * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html
+   */
+  public readonly role?: iam.IRole;
 
   constructor(scope: cdk.Construct, id: string, props: PipelineCloudFormationActionProps, configuration?: any) {
     super(scope, id, {
